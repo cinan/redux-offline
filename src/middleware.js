@@ -8,8 +8,14 @@ const after = (timeout = 0) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 };
 
-const complete = (action: ResultAction, success: boolean, payload: {}): ResultAction => {
-  return { ...action, payload, meta: { ...action.meta, success, completed: true } };
+const complete = (action: ResultAction, success: boolean, payload: {}): any => {
+  const meta = { ...action.meta, success, completed: true };
+
+  if (typeof action === 'function') {
+    return action({ payload, meta });
+  } else {
+    return { ...action, payload, meta };
+  }
 };
 
 const take = (state: AppState, config: Config): Outbox => {

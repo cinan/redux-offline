@@ -7,7 +7,7 @@ export type ResultAction = {
     success: boolean,
     completed: boolean
   }
-};
+} | Function;
 
 export type OfflineMetadata = {
   effect: {},
